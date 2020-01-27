@@ -12,7 +12,7 @@ nunit.framework.dll
 
 * Tests
 
-C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe /target:library /reference:C:\Users\Jon\csharp\talamitam\libs\nunit.framework.dll /out:TalamitamTests.dll src\TalamitamException.cs src\types\BencodeType.cs tests\types\BencodeTypeTests.cs src\Types\BencodeNumber.cs tests\Types\BencodeNumberTests.cs src\Types\BencodeString.cs tests\Types\BencodeStringTests.cs src\Types\BencodeList.cs tests\Types\BencodeListTests.cs src\Types\BencodeDictionary.cs tests\Types\BencodeDictionaryTests.cs src\types\BencodePieces.cs tests\types\BencodePiecesTests.cs src\Parser.cs tests\ParserTests.cs tests\BaseTests.cs
+csc.exe /target:library /reference:C:\Users\Jon\csharp\talamitam\libs\nunit.framework.dll /out:TalamitamTests.dll src\TalamitamException.cs src\types\BencodeType.cs tests\types\BencodeTypeTests.cs src\Types\BencodeNumber.cs tests\Types\BencodeNumberTests.cs src\Types\BencodeString.cs tests\Types\BencodeStringTests.cs src\Types\BencodeList.cs tests\Types\BencodeListTests.cs src\Types\BencodeDictionary.cs tests\Types\BencodeDictionaryTests.cs src\types\BencodePieces.cs tests\types\BencodePiecesTests.cs src\Parser.cs tests\ParserTests.cs tests\BaseTests.cs
 
 nunitlite-runner.exe TalamitamTests.dll
 

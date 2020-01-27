@@ -10,20 +10,20 @@ namespace TalamitamBencode
     [TestFixture]
     public class ParserTests : BaseTests
     {
-		private Stream GetBinaryStream(String bencode)
-		{
-			var theStream = new MemoryStream();
-			var theWriter = new BinaryWriter(theStream);
-			foreach(var aChar in bencode)
-			{
-				theWriter.Write(aChar);
-			}
-			theStream.Seek(0, SeekOrigin.Begin);
-			return theStream;
-		}
-		
+        private Stream GetBinaryStream(String bencode)
+        {
+            var theStream = new MemoryStream();
+            var theWriter = new BinaryWriter(theStream);
+            foreach(var aChar in bencode)
+            {
+                theWriter.Write(aChar);
+            }
+            theStream.Seek(0, SeekOrigin.Begin);
+            return theStream;
+        }
+        
 
-		
+        
         // should error on empty stream
         [Test]
         public void TestParse100()
@@ -401,111 +401,111 @@ namespace TalamitamBencode
                 Assert.AreEqual("invalid bencoded string", ex.Message);
             }
         }
-		
-		private Byte[] GetSha1(String something)
-		{
-			using (SHA1Managed sha1 = new SHA1Managed())
-			{
-				return sha1.ComputeHash(Encoding.UTF8.GetBytes(something));
-			}
-		}
-		
-		private Stream GetPiecesStream(Byte[][] pieces)
-		{
-			var theStream = new MemoryStream();
-			var theWriter = new BinaryWriter(theStream);
-			theWriter.Write('d');
-			theWriter.Write('6');
-			theWriter.Write(':');
-			theWriter.Write('p');
-			theWriter.Write('i');
-			theWriter.Write('e');
-			theWriter.Write('c');
-			theWriter.Write('e');
-			theWriter.Write('s');
+        
+        private Byte[] GetSha1(String something)
+        {
+            using (SHA1Managed sha1 = new SHA1Managed())
+            {
+                return sha1.ComputeHash(Encoding.UTF8.GetBytes(something));
+            }
+        }
+        
+        private Stream GetPiecesStream(Byte[][] pieces)
+        {
+            var theStream = new MemoryStream();
+            var theWriter = new BinaryWriter(theStream);
+            theWriter.Write('d');
+            theWriter.Write('6');
+            theWriter.Write(':');
+            theWriter.Write('p');
+            theWriter.Write('i');
+            theWriter.Write('e');
+            theWriter.Write('c');
+            theWriter.Write('e');
+            theWriter.Write('s');
 
-			var temp = pieces.Length * 20;
-			var lengthString = temp.ToString();
-			foreach(var lengthChar in lengthString)
-			{
-				theWriter.Write(lengthChar);
-			}
+            var temp = pieces.Length * 20;
+            var lengthString = temp.ToString();
+            foreach(var lengthChar in lengthString)
+            {
+                theWriter.Write(lengthChar);
+            }
 
-			theWriter.Write(':');
+            theWriter.Write(':');
 
-			foreach(var piece in pieces)
-			{
-				theWriter.Write(piece);
-			}
-			
-			theWriter.Write('e');
-			
-			theStream.Seek(0, SeekOrigin.Begin);
-			return theStream;
-		}
+            foreach(var piece in pieces)
+            {
+                theWriter.Write(piece);
+            }
+            
+            theWriter.Write('e');
+            
+            theStream.Seek(0, SeekOrigin.Begin);
+            return theStream;
+        }
         
         [Test]
         public void TestParsePieces100()
         {
-			var sha11 = GetSha1("test1");
+            var sha11 = GetSha1("test1");
             var pieces = new Byte[1][] { sha11 };
             var hex1 = BitConverter.ToString(sha11).Replace("-","");
             
-			var theStream = GetPiecesStream(pieces);
-			using(var reader = new BinaryReader(theStream))
-			{
-				var bencodeType = Parser.Parse(reader);
-				Assert.AreEqual(true, bencodeType.IsBencodeDictionary);
-				var expected = "{\"pieces\":[\"" + hex1 + "\"]}";
-				Assert.AreEqual(expected, bencodeType.ToJson());
-			}
+            var theStream = GetPiecesStream(pieces);
+            using(var reader = new BinaryReader(theStream))
+            {
+                var bencodeType = Parser.Parse(reader);
+                Assert.AreEqual(true, bencodeType.IsBencodeDictionary);
+                var expected = "{\"pieces\":[\"" + hex1 + "\"]}";
+                Assert.AreEqual(expected, bencodeType.ToJson());
+            }
         }
-		
+        
         [Test]
         public void TestParsePieces105()
         {
-			var sha11 = GetSha1("test1");
-			var sha12 = GetSha1("test1");
+            var sha11 = GetSha1("test1");
+            var sha12 = GetSha1("test1");
             var pieces = new Byte[2][] { sha11, sha12 };
             var hex1 = BitConverter.ToString(sha11).Replace("-","");
-			var hex2 = BitConverter.ToString(sha12).Replace("-","");
+            var hex2 = BitConverter.ToString(sha12).Replace("-","");
             
-			var theStream = GetPiecesStream(pieces);
-			using(var reader = new BinaryReader(theStream))
-			{
-				var bencodeType = Parser.Parse(reader);
-				Assert.AreEqual(true, bencodeType.IsBencodeDictionary);
-				var expected = "{\"pieces\":[\"" + hex1 + "\",\"" + hex2 + "\"]}";
-				Assert.AreEqual(expected, bencodeType.ToJson());
-			}
+            var theStream = GetPiecesStream(pieces);
+            using(var reader = new BinaryReader(theStream))
+            {
+                var bencodeType = Parser.Parse(reader);
+                Assert.AreEqual(true, bencodeType.IsBencodeDictionary);
+                var expected = "{\"pieces\":[\"" + hex1 + "\",\"" + hex2 + "\"]}";
+                Assert.AreEqual(expected, bencodeType.ToJson());
+            }
         }
-		
+        
         [Test]
         public void TestParsePieces115()
         {
-			var invalid = new Byte[1] { 1 };
+            var invalid = new Byte[1] { 1 };
             var pieces = new Byte[1][] { invalid };
             
-			var theStream = GetPiecesStream(pieces);
-			using(var reader = new BinaryReader(theStream))
-			{
+            var theStream = GetPiecesStream(pieces);
+            using(var reader = new BinaryReader(theStream))
+            {
                 var ex = Assert.Throws<TalamitamException>(() => { Parser.Parse(reader); });
                 Assert.AreEqual("invalid bencoded string", ex.Message);
-			}
+            }
         }
         [Test]
         public void TestParsePieces120()
         {
-			var sha11 = GetSha1("test1");
-			var invalid = new Byte[1] { 1 };
+            var sha11 = GetSha1("test1");
+            var invalid = new Byte[1] { 1 };
             var pieces = new Byte[2][] { sha11, invalid };
             
-			var theStream = GetPiecesStream(pieces);
-			using(var reader = new BinaryReader(theStream))
-			{
+            var theStream = GetPiecesStream(pieces);
+            using(var reader = new BinaryReader(theStream))
+            {
                 var ex = Assert.Throws<TalamitamException>(() => { Parser.Parse(reader); });
                 Assert.AreEqual("invalid bencoded string", ex.Message);
-			}
+            }
         }
     }
 }

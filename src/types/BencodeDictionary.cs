@@ -37,7 +37,7 @@ namespace TalamitamBencode.Types
             {
                 if(key != null && key.TheValue.Equals("pieces"))
                 {
-					current = aReader.Read();
+                    current = aReader.Read();
                     temp = new BencodePieces(aReader, current);
                 }
                 else
