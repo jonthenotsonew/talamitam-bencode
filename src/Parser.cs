@@ -8,7 +8,7 @@ namespace TalamitamBencode
 {
     public class Parser
     {
-        public static BencodeType Parse(TextReader aReader)
+        public static BencodeType Parse(BinaryReader aReader)
         {
             var firstInt = aReader.Read();
 

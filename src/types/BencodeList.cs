@@ -22,7 +22,7 @@ namespace TalamitamBencode.Types
             theList = new List<BencodeType>();
         }
         
-        public BencodeList(TextReader aReader, Int32 initial)
+        public BencodeList(BinaryReader aReader, Int32 initial)
         {
             theList = new List<BencodeType>();
             

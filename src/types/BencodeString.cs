@@ -31,7 +31,7 @@ namespace TalamitamBencode.Types
         }
         
         // parses byte string into an object
-        public BencodeString(TextReader aReader, Int32 initial)
+        public BencodeString(BinaryReader aReader, Int32 initial)
         {
             // append initial number to get length
             var length = new StringBuilder();

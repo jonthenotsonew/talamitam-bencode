@@ -14,7 +14,7 @@ namespace TalamitamBencode.Types
             theValue = anInt64;
         }
         
-        public BencodeNumber(TextReader aReader, Int32 initial)
+        public BencodeNumber(BinaryReader aReader, Int32 initial)
         {
             var foundStart = Convert.ToChar(initial).Equals('i');
             var foundEnd = false;

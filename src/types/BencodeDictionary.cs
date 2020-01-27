@@ -24,20 +24,30 @@ namespace TalamitamBencode.Types
             theDictionary = new Dictionary<BencodeString, BencodeType>();
         }
         
-        public BencodeDictionary(TextReader aReader, Int32 initial)
+        public BencodeDictionary(BinaryReader aReader, Int32 initial)
         {            
             theDictionary = new Dictionary<BencodeString, BencodeType>();
             
             BencodeString key = null;
             BencodeType value = null;
+            BencodeType temp = null;
             
-            var current = initial;
+            Int32 current = initial;
             while(current != -1)
             {
-                var temp = Parser.Parse(aReader);
+                if(key != null && key.TheValue.Equals("pieces"))
+                {
+					current = aReader.Read();
+                    temp = new BencodePieces(aReader, current);
+                }
+                else
+                {
+                    temp = Parser.Parse(aReader);
+                }
+
                 if(temp == null)
                     break;
-                
+
                 if(key == null && temp.IsBencodeString == false)
                     throw new TalamitamException("invalid bencoded string");
                 
