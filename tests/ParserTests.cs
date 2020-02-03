@@ -71,6 +71,8 @@ namespace TalamitamBencode
             }
         }
         
+		// should error in invalid integer
+		// invalid because no number between i and e
         [Test]
         public void TestParseNumber115()
         {
@@ -81,6 +83,8 @@ namespace TalamitamBencode
             }
         }
         
+		// should error on invalid integer
+		// invalid because no e
         [Test]
         public void TestParseNumber120()
         {
@@ -91,6 +95,8 @@ namespace TalamitamBencode
             }
         }
         
+		// should error on invalid integer
+		// invalid because double negative char
         [Test]
         public void TestParseNumber125()
         {
@@ -160,6 +166,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should be able to escape the backslash for the double quote
         [Test]
         public void TestParseString125()
         {
@@ -177,6 +184,8 @@ namespace TalamitamBencode
             }
         }
         
+		// should error on invalid string
+		// invalid because no chars after :
         [Test]
         public void TestParseString130()
         {
@@ -187,6 +196,8 @@ namespace TalamitamBencode
             }
         }
         
+		// should error on invalid string
+		// invalid because num != chars after :
         [Test]
         public void TestParseString135()
         {
@@ -197,6 +208,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse empty list 
         [Test]
         public void TestParseList100()
         {
@@ -208,6 +220,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse list with integer
         [Test]
         public void TestParseList105()
         {
@@ -219,6 +232,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse list with string
         [Test]
         public void TestParseList110()
         {
@@ -230,6 +244,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse list with two integer
         [Test]
         public void TestParseList115()
         {
@@ -241,6 +256,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse list with two string
         [Test]
         public void TestParseList120()
         {
@@ -252,6 +268,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse list with string and integer
         [Test]
         public void TestParseList125()
         {
@@ -263,6 +280,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse list
         [Test]
         public void TestParseList130()
         {
@@ -274,6 +292,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse lists of lists
         [Test]
         public void TestParseList135()
         {
@@ -285,6 +304,8 @@ namespace TalamitamBencode
             }
         }
         
+		// should error on invalid list
+		// invalid because no e
         [Test]
         public void TestParseList140()
         {
@@ -295,6 +316,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse empty dictionary
         [Test]
         public void TestParseDictionary100()
         {
@@ -306,6 +328,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse dictionary with one key
         [Test]
         public void TestParseDictionary105()
         {
@@ -317,6 +340,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse dictionary with int value
         [Test]
         public void TestParseDictionary110()
         {
@@ -328,6 +352,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse dictionary with string value
         [Test]
         public void TestParseDictionary115()
         {
@@ -339,6 +364,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse dictionary with list value
         [Test]
         public void TestParseDictionary120()
         {
@@ -350,6 +376,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse dictionary with dictionary value
         [Test]
         public void TestParseDictionary125()
         {
@@ -361,6 +388,7 @@ namespace TalamitamBencode
             }
         }
         
+		// should parse complex dictionary
         [Test]
         public void TestParseDictionary130()
         {
@@ -372,6 +400,8 @@ namespace TalamitamBencode
             }
         }
         
+		// should error on invalid dictionary
+		// invalid because no e
         [Test]
         public void TestParseDictionary135()
         {
@@ -382,6 +412,8 @@ namespace TalamitamBencode
             }
         }
         
+		// should error on invalid dictionary
+		// invalid because integer key
         [Test]
         public void TestParseDictionary140()
         {
@@ -392,6 +424,9 @@ namespace TalamitamBencode
             }
         }
         
+		
+		// should error on invalid dictionary
+		// invalid because no value
         [Test]
         public void TestParseDictionary145()
         {
@@ -444,6 +479,8 @@ namespace TalamitamBencode
             return theStream;
         }
         
+		// should parse pieces
+		// one peice
         [Test]
         public void TestParsePieces100()
         {
@@ -460,7 +497,9 @@ namespace TalamitamBencode
                 Assert.AreEqual(expected, bencodeType.ToJson());
             }
         }
-        
+
+		// should parse pieces
+		// two peice        
         [Test]
         public void TestParsePieces105()
         {
@@ -480,6 +519,8 @@ namespace TalamitamBencode
             }
         }
         
+		// should error on invalid piece
+		// first piece is not 20 bytes long
         [Test]
         public void TestParsePieces115()
         {
@@ -493,6 +534,9 @@ namespace TalamitamBencode
                 Assert.AreEqual("invalid bencoded string", ex.Message);
             }
         }
+		
+		// should error on invalid piece
+		// other pieces are not 20 bytes long
         [Test]
         public void TestParsePieces120()
         {
